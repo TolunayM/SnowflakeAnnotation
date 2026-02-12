@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: snowflake
+server:
+  port: 8080
+
+app:
+  worker:
+    id: ${WORKER_ID}
+  datacenter:
+    id: ${DATACENTER_ID}
+
+logging:
+  level:
+    com: INFO
