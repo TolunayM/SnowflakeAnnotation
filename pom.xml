@@ -8,11 +8,38 @@
         <version>4.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.microp</groupId>
+
+    <groupId>io.github.tolunaym</groupId>
     <artifactId>Snowflake</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
     <name>Snowflake</name>
-    <description>Snowflake</description>
+    <description>Annotation for Distributed ID Generator Snowflake</description>
+    <url>https://github.com/TolunayM/SnowflakeAnnotation</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Tolunay Mutlu</name>
+            <email>tolunaydevloopment@gmail.com</email>
+            <url>https://github.com/TolunayM</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/TolunayM/SnowflakeAnnotation.git</connection>
+        <developerConnection>scm:git:ssh://github.com:TolunayM/SnowflakeAnnotation.git</developerConnection>
+        <url>https://github.com/TolunayM/SnowflakeAnnotation/tree/main</url>
+    </scm>
+
+
     <properties>
         <java.version>25</java.version>
     </properties>
