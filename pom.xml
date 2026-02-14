@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>io.github.tolunaym</groupId>
-    <artifactId>Snowflake</artifactId>
+    <artifactId>SnowflakeAnnotation</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
@@ -71,7 +71,6 @@
         <finalName>SnowflakeAnnotation-0.1.1</finalName>
         <plugins>
             <plugin>
-
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -86,6 +85,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.9.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
             </plugin>
         </plugins>
     </build>
