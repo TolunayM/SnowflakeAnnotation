@@ -68,7 +68,6 @@
     </dependencies>
 
     <build>
-        <finalName>SnowflakeAnnotation-0.1.1</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
