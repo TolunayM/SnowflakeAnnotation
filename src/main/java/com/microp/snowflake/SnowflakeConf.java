@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SnowflakeConfig {
+public class SnowflakeConf {
 
-    Logger logger = LoggerFactory.getLogger(SnowflakeConfig.class);
+    Logger logger = LoggerFactory.getLogger(SnowflakeConf.class);
 
     @Value("${WORKER_ID:default-worker-0}")
     private String workerIdWithName;
@@ -25,7 +25,7 @@ public class SnowflakeConfig {
 
         long workerId = Long.parseLong(workerIdWithName.split("-")[2]);
 
-        logger.info("This project contains placeholder bean for snowflake instance, making your own highly recommended.");
+        logger.info("This project contains placeholder bean for the Snowflake instance, creating your own config highly recommended.");
         logger.info("SnowflakeConfig Using datacenterId={} workerId={}", datacenterId, workerId);
         return new Snowflake(workerId,datacenterId);
     }

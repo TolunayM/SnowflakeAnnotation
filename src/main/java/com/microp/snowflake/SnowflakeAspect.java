@@ -1,8 +1,5 @@
 package com.microp.snowflake;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Table;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -22,15 +19,15 @@ public class SnowflakeAspect {
     // Cache for annotation contained fields
     private final Map<Class<?>, List<Field>> snowflakeFieldCache = new ConcurrentHashMap<>();
 
-    // Cache for classes which don't have @Entity/@Table/@MappedSuperclass annotation
-    private final Map<Class<?>, Boolean> nonEntityCache = new ConcurrentHashMap<>();
+    // Cache for classes which don't have @Snowflake annotation
+    private final Map<Class<?>, Boolean> nonSnowCache = new ConcurrentHashMap<>();
 
     public SnowflakeAspect(Snowflake snowflake) {
         this.snowflake = snowflake;
     }
 
     @Before("@within(org.springframework.stereotype.Service) || " +
-            "@within(org.springframework.stereotype.Repository) || " +
+            "@within(org.springframework.stereotype.Component) || " +
             "@within(org.springframework.stereotype.Controller)")
     public void injectId(JoinPoint joinPoint) throws IllegalAccessException {
 
@@ -44,14 +41,14 @@ public class SnowflakeAspect {
     private void processEntity(Object arg) throws IllegalAccessException {
         Class<?> clazz = arg.getClass();
 
-        if (nonEntityCache.containsKey(clazz)) return;
+        if (nonSnowCache.containsKey(clazz)) return;
 
         List<Field> snowflakeFields = snowflakeFieldCache.get(clazz);
 
         if (snowflakeFields == null) {
-            // Check for @Entity/@Table/@MappedSuperclass annotation
-            if (!isPersistentClass(clazz)) {
-                nonEntityCache.put(clazz, true);
+            // Check for  annotation
+            if (!isContainsSnow(clazz)) {
+                nonSnowCache.put(clazz, true);
                 return;
             }
 
@@ -73,25 +70,18 @@ public class SnowflakeAspect {
         }
 
         // ID injection
-
-        //TODO This should be handled for different variable types maybe annotation can have optional settings for different variable types
-        // most common one is using snowflake on string but it cause to performance issues
         for (Field field : snowflakeFields) {
             if (field.get(arg) == null) {
                 if(field.getType() == Long.class){
                     field.set(arg, snowflake.nextId());
                 }else{
-                    //TODO snap this exception handling from here
                     throw new RuntimeException("SnowflakeId field type must be Long");
                 }
-//                field.set(arg, snowflake.nextId());
             }
         }
     }
 
-    private boolean isPersistentClass(Class<?> clazz) {
-        return clazz.isAnnotationPresent(Entity.class) ||
-                clazz.isAnnotationPresent(Table.class) ||
-                clazz.isAnnotationPresent(MappedSuperclass.class);
+    private boolean isContainsSnow(Class<?> clazz) {
+        return clazz.isAnnotationPresent(SnowflakeData.class);
     }
 }
