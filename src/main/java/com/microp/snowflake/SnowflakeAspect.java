@@ -71,8 +71,8 @@ public class SnowflakeAspect {
 
         // ID injection
         for (Field field : snowflakeFields) {
-            if (field.get(arg) == null) {
-                if(field.getType() == Long.class){
+            if ((long)field.get(arg) == 0) {
+                if(field.getType() == Long.TYPE){
                     field.set(arg, snowflake.nextId());
                 }else{
                     throw new RuntimeException("SnowflakeId field type must be Long");
