@@ -45,6 +45,8 @@ snowflake.worker-id=1
 snowflake.datacenter-id=1
 ```
 
+You can create your own service to retrieve these values from your environment.
+
 ### 2. Implementation in Entities
 
 Simply add the `@SnowflakeId` annotation to the field you want and `@SnowflakeData` to the class you want to be automatically populated:
